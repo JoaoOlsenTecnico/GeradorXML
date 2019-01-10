@@ -22,13 +22,13 @@
             // Abrindo a tag XML
             var xmldata=['<?xml version="1.0"?>'];
             // Criando a Tag RSS   
-            var el=document.createElement("RSS");
+            var el=document.createElement("FEED");
             // Pegando valor do texto
             var tituloFeed = document.getElementById('tituloFeed').value;
             // Adicionando Conteudo dentro da tag   
             el.insertAdjacentHTML("afterBegin" , tituloFeed)
             // Adicionando Atributos a tag
-            el.setAttribute("version", "2.0");
+            el.setAttribute("xmlns", "http://www.w3.org/2005/Atom");
             el.setAttribute("xmlns:g", "http://base.google.com/ns/1.0");    
             // Puxando pro arquivo XML 
             xmldata.push(el.outerHTML);
