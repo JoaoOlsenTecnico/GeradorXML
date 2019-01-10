@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script> 
+    // Função que cria metodo de Download
+        function downloadData(contentType,data,filename){ 
+            var link=document.createElement("A");
+            link.setAttribute("href",encodeURI("data:"+contentType+","+data));
+            link.setAttribute("style","display:none");
+            link.setAttribute("download",filename);
+            document.body.appendChild(link); 
+            console.log(link.outerHTML);
+            link.click();
+            setTimeout(function(){
+                document.body.removeChild(link);
+            },1000);
+        }
+
+
+    // Função que cria o documento.
+        function fromToXml(){
+            // Abrindo a tag XML
+            var xmldata=['<?xml version="1.0"?>'];
+            // Criando a Tag RSS   
+            var el=document.createElement("RSS");
+            // Pegando valor do texto
+            var tituloFeed = document.getElementById('tituloFeed').value;
+            // Adicionando Conteudo dentro da tag   
+            el.insertAdjacentHTML("afterBegin" , tituloFeed)
+            // Adicionando Atributos a tag
+            el.setAttribute("version", "2.0");
+            el.setAttribute("xmlns:g", "http://base.google.com/ns/1.0");    
+            // Puxando pro arquivo XML 
+            xmldata.push(el.outerHTML);
+            // Incerindo os dados no arquivo.XML
+            return xmldata.join("\n");
+        }
+    
+    // Função que executa o download
+        function download(){
+            var data=fromToXml();
+            console.log(data);    
+            downloadData("text/xml",data,"export.xml");
+        }
+    </script>
+  
+    <title>Gerador de XML!</title> 
+</head>
+<body>
+    <h1>Baixe seu XML!</h1>
+    <form id="formulario">
+       <p>Digite seu documento:</p>
+       <textarea type="text" id="tituloFeed"  style="width:200px; height:200px"></textarea>
+       <br>
+       <br>
+       <button type="button" onclick="download()" id="submitButton">Download</button> 
+    </form>
+    
+</body>
+</html>
